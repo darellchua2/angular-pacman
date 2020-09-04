@@ -79,9 +79,9 @@ export class AppComponent implements OnInit{
   pacmanCurrentIndex = 490;
   ghosts = [
     new Ghost('blinky', 348, 300),
-    new Ghost('pinky', 376, 400),
-    new Ghost('inky', 351, 320),
-    new Ghost('clyde', 379, 500)
+    // new Ghost('pinky', 376, 400),
+    // new Ghost('inky', 351, 320),
+    // new Ghost('clyde', 379, 500)
   ]
 
   @ViewChild('grid') grid: ElementRef;
@@ -176,7 +176,14 @@ export class AppComponent implements OnInit{
   }
 
   moveGhost(ghost) {
-    // please implement this.
+    var myTimer = function () {
+        console.log(ghost.className + ":" + ghost.currentIndex);
+        ghost.currentIndex = ghost.currentIndex + Math.floor(Math.random() * 2);
+        console.log();
+    }
+    var myVar = setInterval(myTimer, 1000);
+
+
   }
 
   checkForGameOver(squaresX, pacmanCurrentIndexX) {
@@ -220,7 +227,7 @@ export class AppComponent implements OnInit{
           this.ghosts.forEach(ghost => ghost.isScared = true)
           setTimeout(()=>{
             this.ghosts.forEach(ghost => {
-                ghost.isScared = false
+                ghost.isScared = true
                 this.squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost')
                 ghost.currentIndex = ghost.startIndex
                 this.squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
